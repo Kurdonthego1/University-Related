@@ -68,9 +68,6 @@ int Merge(int Items[], int first, int middle, int last) {
 
     // Initialize variables and operations count
     int i, j, k, operations;
-    i = 0;
-    j = 0;
-    k = first;
     operations = 0;
 
     // Copy data from original array to the temp arrays
@@ -78,6 +75,12 @@ int Merge(int Items[], int first, int middle, int last) {
         L[i] = Items[first + i];
     for (j = 0; j < n2; ++j)
         M[j] = Items[middle + 1 + j];
+
+    // Defined 0 to set up for merging the two subarrays
+    // Must be after the two for loops or it will not function
+    i = 0;
+    j = 0;
+    k = first;
 
     // Merge the two subarray back together
     while (i < n1 && j < n2) {
@@ -98,6 +101,7 @@ int Merge(int Items[], int first, int middle, int last) {
         Items[k] = L[i];
         i++;
         k++;
+        // Increase operation count as long as there is remaining subarrays
         operations++;
     }
 
@@ -106,6 +110,7 @@ int Merge(int Items[], int first, int middle, int last) {
         Items[k] = M[j];
         j++;
         k++;
+        // Increase operation count as long as there is remaining subarrays
         operations++;
     }
 
@@ -119,7 +124,7 @@ int MergeSort(int Items[], int first, int last){
 
     // Condition to allow for function to work, uses recursion
     if (first < last){
-        int middle = (first + last) / 2;;
+        int middle = (first + last) / 2;
         // Each time the functions are called, it will count operations and return
         operations += MergeSort(Items, first, middle);
         operations += MergeSort(Items, middle + 1, last);
